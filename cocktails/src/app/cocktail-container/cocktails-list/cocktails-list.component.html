@@ -1,0 +1,21 @@
+
+ <!-- [appActive]="index === activeCocktail"-->
+  <!-- (click)="pickCocktail(index)" -->
+
+<div class="row">
+    <div class="list group col-12"></div>
+    <input type="text" class="form-control" [(ngModel)]="search">
+    <a
+        *ngFor="let cocktail of cocktails | filter:search ; let index = index"
+        routerLinkActive="active"
+        [routerLink]="[index]"
+        class="list-group-item list-group-item-action">
+        {{cocktail.name}}
+    </a>
+</div>
+<hr>
+<div class="row">
+    <button class="btn btn-success" [routerLink]="['new']">
+        Ajouter un cocktail
+    </button>
+</div>

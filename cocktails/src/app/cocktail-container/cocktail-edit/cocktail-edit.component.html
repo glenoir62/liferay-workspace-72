@@ -1,0 +1,27 @@
+<form [formGroup]="cocktailFormGroup" (ngSubmit)="createCocktail()">
+    <div class="form-group">
+        <label for="exampleInputName">Name</label>
+        <input formControlName="name" type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp">
+        <small id="nameHelp" class="form-text text-muted">We'll never share your name with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputImage">Image</label>
+        <input formControlName="img" type="text" class="form-control" placeholder="Lien Image" id="exampleInputImage">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputDescription">Description</label>
+        <textarea formControlName="desc" type="text" class="form-control" id="exampleInputDescription"></textarea>
+    </div>
+    <hr>
+        <button type="button" class="btn btn-success" (click)="addIngredient()">Ajouter un ingredient</button>
+    <hr>
+        <div formArrayName="ingredients">
+            <div [formGroup]="ingredient" class="form-group row" *ngFor="let ingredient of cocktailFormGroup.get('ingredients').controls">
+                <input placeholder="name" formControlName="name" class="col-8 form-control" type="text"/>
+                <input placeholder="quantity" formControlName="quantity" class="col-4 form-control" type="number"/>
+            </div>
+        </div>
+    <hr>
+    <button [disabled]="cocktailFormGroup.invalid" type="submit" class="btn btn-primary">Sauvegarder</button>
+    <button type="reset" class="btn btn-secondary ml-2" [routerLink]="['../']">Annuler</button>
+</form>
