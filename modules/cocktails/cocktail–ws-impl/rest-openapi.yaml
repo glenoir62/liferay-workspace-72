@@ -1,0 +1,175 @@
+components:
+    schemas:
+        Cocktail:
+            description: Represents an cocktail.
+            properties:
+                createDate:
+                    format: date-time
+                    type: string
+                id:
+                    format: int64
+                    type: integer
+                name:
+                    type: string
+                image:
+                    type: string
+                description:
+                    type: string
+            required:
+                - name
+            type: object
+info:
+    description: Cocktail api
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    title: "Cocktails"
+    version: v1.0
+    contact:
+        name: guillaume lenoir
+        email: guillaume.lenoir59@gmail.com
+openapi: 3.0.1
+paths:
+    "/cocktails/{cocktailId}":
+        delete:
+            description: delete cocktailId
+            operationId: deleteCocktail
+            parameters:
+                - in: path
+                  name: cocktailId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                204:
+                    description: No content
+                    content:
+                        application/json: {}
+                        application/xml: {}
+            tags: ["Cocktail"]
+        get:
+            operationId: getCocktail
+            parameters:
+                - in: path
+                  name: cocktailId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Cocktail"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Cocktail"
+                    description: "Get cocktail"
+            tags: ["Cocktail"]
+            description: get cocktailId
+        put:
+            description: put cocktailId
+            operationId: putCocktail
+            parameters:
+                - in: path
+                  name: cocktailId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Cocktail"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Cocktail"
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Cocktail"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Cocktail"
+                    description: ""
+            tags: ["Cocktail"]
+    "/sites/{siteId}/cocktails":
+        get:
+            operationId: getSiteCocktailsPage
+            parameters:
+                - in: path
+                  name: siteId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+                - in: query
+                  name: filter
+                  schema:
+                      type: string
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+                - in: query
+                  name: search
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Cocktail"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Cocktail"
+                                type: array
+                    description: "Get cocktails"
+            tags: ["Cocktail"]
+            description: get cocktails by site id
+        post:
+            description: post cocktails by site id
+            operationId: postSiteCocktail
+            parameters:
+                - in: path
+                  name: siteId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Cocktail"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Cocktail"
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Cocktail"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Cocktail"
+                    description: ""
+            tags: ["Cocktail"]
