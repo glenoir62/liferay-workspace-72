@@ -18,20 +18,20 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Guillaume Lenoir
  */
-public class cocktailValidationException extends PortalException {
+public class CocktailValidationException extends PortalException {
 
-	public cocktailValidationException() {
+	public CocktailValidationException() {
 	}
 
-	public cocktailValidationException(String msg) {
+	public CocktailValidationException(String msg) {
 		super(msg);
 	}
 
-	public cocktailValidationException(String msg, Throwable cause) {
+	public CocktailValidationException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public cocktailValidationException(Throwable cause) {
+	public CocktailValidationException(Throwable cause) {
 		super(cause);
 	}
 
