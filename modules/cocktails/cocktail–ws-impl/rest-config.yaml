@@ -1,0 +1,7 @@
+apiDir: "../cocktail-ws-api/src/main/java"
+apiPackagePath: "fr.gleo.liferay.meetup.ws"
+application:
+    baseURI: "/cocktails"
+    className: "CocktailsApplication"
+    name: "Liferay.Cocktails"
+author: "Guillaume Lenoir"
