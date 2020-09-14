@@ -1,0 +1,6 @@
+Bundle-Name: cocktail-ws-api
+Bundle-SymbolicName: cocktail.ws.api
+Bundle-Version: 1.0.0
+Export-Package: \
+	fr.gleo.liferay.meetup.ws.dto.v1_0,\
+	fr.gleo.liferay.meetup.ws.resource.v1_0

@@ -1,0 +1,10 @@
+Bundle-Name: cocktails-api
+Bundle-SymbolicName: fr.gleo.meetup.liferay.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	fr.gleo.meetup.liferay.exception,\
+	fr.gleo.meetup.liferay.model,\
+	fr.gleo.meetup.liferay.service,\
+	fr.gleo.meetup.liferay.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../cocktails-service/service.xml
