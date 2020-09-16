@@ -51,6 +51,26 @@ public class CocktailLocalServiceUtil {
 	}
 
 	/**
+	 * Adds an cocktail.
+	 *
+	 * @param groupId
+	 * @param name
+	 * @param description
+	 * @param image
+	 * @param serviceContext
+	 * @return
+	 * @throws PortalException
+	 */
+	public static fr.gleo.meetup.liferay.model.Cocktail addCocktail(
+			long groupId, String name, String description, String image,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCocktail(
+			groupId, name, description, image, serviceContext);
+	}
+
+	/**
 	 * Creates a new cocktail with the primary key. Does not add the cocktail to the database.
 	 *
 	 * @param cocktailId the primary key for the new cocktail
@@ -256,6 +276,16 @@ public class CocktailLocalServiceUtil {
 	}
 
 	/**
+	 * @param groupId
+	 * @return
+	 */
+	public static java.util.List<fr.gleo.meetup.liferay.model.Cocktail>
+		getCocktailsByGroupId(long groupId) {
+
+		return getService().getCocktailsByGroupId(groupId);
+	}
+
+	/**
 	 * Returns all the cocktails matching the UUID and company.
 	 *
 	 * @param uuid the UUID of the cocktails
@@ -295,6 +325,10 @@ public class CocktailLocalServiceUtil {
 	 */
 	public static int getCocktailsCount() {
 		return getService().getCocktailsCount();
+	}
+
+	public static int getCocktailsCountByGroupId(long groupId) {
+		return getService().getCocktailsCountByGroupId(groupId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
@@ -341,6 +375,26 @@ public class CocktailLocalServiceUtil {
 		fr.gleo.meetup.liferay.model.Cocktail cocktail) {
 
 		return getService().updateCocktail(cocktail);
+	}
+
+	/**
+	 * Updates cocktail.
+	 *
+	 * @param cocktailId
+	 * @param name
+	 * @param description
+	 * @param image
+	 * @param serviceContext
+	 * @return
+	 * @throws PortalException
+	 */
+	public static fr.gleo.meetup.liferay.model.Cocktail updateCocktail(
+			long cocktailId, String name, String description, String image,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCocktail(
+			cocktailId, name, description, image, serviceContext);
 	}
 
 	public static CocktailLocalService getService() {

@@ -2,13 +2,16 @@ package fr.gleo.liferay.meetup.ws.internal.resource.v1_0;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.service.CompanyService;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import fr.gleo.liferay.meetup.ws.dto.v1_0.Cocktail;
 import fr.gleo.liferay.meetup.ws.resource.v1_0.CocktailResource;
-
 import fr.gleo.meetup.liferay.service.CocktailLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -16,54 +19,92 @@ import org.osgi.service.component.annotations.ServiceScope;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Guillaume Lenoir
  */
 @Component(
-	properties = "OSGI-INF/liferay/rest/v1_0/cocktail.properties",
-	scope = ServiceScope.PROTOTYPE, service = CocktailResource.class
+        properties = "OSGI-INF/liferay/rest/v1_0/cocktail.properties",
+        scope = ServiceScope.PROTOTYPE, service = CocktailResource.class
 )
 public class CocktailResourceImpl extends BaseCocktailResourceImpl {
 
-	private final static Log LOGGER = LogFactoryUtil.getLog(CocktailResourceImpl.class);
+    private final static Log LOGGER = LogFactoryUtil.getLog(CocktailResourceImpl.class);
 
-	@Reference
-	private CocktailLocalService cocktailLocalService;
 
-	@Override
-	public void deleteCocktail(@NotNull Long cocktailId) throws Exception {
-		LOGGER.info("deleteCocktail");
-		super.deleteCocktail(cocktailId);
-	}
+    @Reference
+    private CompanyService companyService;
 
-	@Override
-	public Cocktail getCocktail(@NotNull Long cocktailId) throws Exception {
-		LOGGER.info("getCocktail");
+    @Reference
+    private CocktailLocalService cocktailLocalService;
 
-		Optional<fr.gleo.meetup.liferay.model.Cocktail> optionalCocktail = Optional.ofNullable(cocktailLocalService.getCocktail(cocktailId));
+    @Override
+    public void deleteCocktail(@NotNull Long cocktailId) throws Exception {
+        LOGGER.info("deleteCocktail");
+		cocktailLocalService.deleteCocktail(cocktailId);
 
-		Cocktail cocktailDTO = new Cocktail();
-		optionalCocktail.ifPresent(cocktail -> {
-			cocktailDTO.setCreateDate(cocktail.getCreateDate());
-			cocktailDTO.setDescription(cocktail.getDescription());
-			cocktailDTO.setId(cocktail.getCocktailId());
-		});
+        super.deleteCocktail(cocktailId);
+    }
 
-		return cocktailDTO;
-	}
+    @Override
+    public Cocktail getCocktail(@NotNull Long cocktailId) throws Exception {
+        LOGGER.info("getCocktail");
+        return _toCocktailDTO(cocktailLocalService.getCocktail(cocktailId));
+    }
 
-	@Override
-	public Cocktail putCocktail(@NotNull Long cocktailId, Cocktail cocktail) throws Exception {
-		LOGGER.info("putCocktail");
-		
-		return super.putCocktail(cocktailId, cocktail);
-	}
+    @Override
+    public Cocktail postSiteCocktail(@NotNull Long siteId, Cocktail cocktail) throws Exception {
+        LOGGER.info("postSiteCocktail ");
 
-	@Override
-	public Page<Cocktail> getSiteCocktailsPage(@NotNull Long siteId, String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
-		LOGGER.info("getSiteCocktailsPage");
-		return super.getSiteCocktailsPage(siteId, search, filter, pagination, sorts);
-	}
+
+        long companyId = PortalUtil.getDefaultCompanyId();
+        Company company = companyService.getCompanyById(companyId);
+        long userId = company.getDefaultUser().getUserId();
+        long groupId = siteId;
+
+        ServiceContext serviceContext = new ServiceContext();
+        serviceContext.setUserId(userId);
+        serviceContext.setCompanyId(companyId);
+        serviceContext.setScopeGroupId(groupId);
+
+        return _toCocktailDTO(cocktailLocalService.addCocktail(groupId, cocktail.getName(), cocktail.getDescription(), cocktail.getImage(), serviceContext));
+    }
+
+    @Override
+    public Cocktail putCocktail(@NotNull Long cocktailId, Cocktail cocktail) throws Exception {
+        LOGGER.info("putCocktail " + cocktail);
+
+        return _toCocktailDTO(cocktailLocalService.updateCocktail(cocktailId, cocktail.getName(), cocktail.getDescription(), cocktail.getImage(), null));
+    }
+
+    @Override
+    public Page<Cocktail> getSiteCocktailsPage(@NotNull Long siteId, String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
+        LOGGER.info("getSiteCocktailsPage");
+
+		List<Cocktail> cocktails = cocktailLocalService.getCocktailsByGroupId(siteId)
+				.stream()
+				.map(cocktail -> _toCocktailDTO(cocktail))
+				.collect(Collectors.toList());
+
+		return Page.of(cocktails);
+    }
+
+    private Cocktail _toCocktailDTO(fr.gleo.meetup.liferay.model.Cocktail cocktail) {
+
+        if (cocktail == null) {
+            return null;
+        }
+
+        return new Cocktail() {
+            {
+                name = cocktail.getName();
+                createDate = cocktail.getCreateDate();
+                image = cocktail.getImage();
+                id = cocktail.getCocktailId();
+                description = cocktail.getDescription();
+            }
+        };
+    }
 }
