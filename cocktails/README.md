@@ -35,3 +35,4 @@ https://github.com/dnebing/vitamins
 https://help.liferay.com/hc/en-us/articles/360036343312-REST-Builder
 
 https://help.liferay.com/hc/en-us/articles/360030377272-Configuring-CORS#enabling-cors-for-jax-rs-applications
+https://blog.mimacom.com/building-modern-api-in-liferay-dxp-with-swagger-and-jax-rs/

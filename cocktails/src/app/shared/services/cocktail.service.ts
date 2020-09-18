@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Cocktail } from '../models/cocktail.model';
 import { Ingredient } from '../models/ingredient.model';
 import { CocktailEditComponent } from 'src/app/cocktail-container/cocktail-edit/cocktail-edit.component';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { filter, map } from 'rxjs/operators';
 
 @Injectable({
@@ -13,39 +13,49 @@ export class CocktailService {
 
   public cocktails: BehaviorSubject<Cocktail[]> = new BehaviorSubject(null);
 
-  getCocktail(index: number): Observable<Cocktail> {
+  private apiPath: string = "http://localhost:8080/o/cocktails/v1.0";
+  private siteId: number = 20124;
+
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      Authorization: 'Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0'
+    })
+  };
+
+  getCocktail(cocktailId: number): Observable<Cocktail> {
+    return this.http.get<Cocktail>(`${this.apiPath}/cocktails/${cocktailId}`, this.httpOptions);
+  }
+
+  getFirstCocktail(): Observable<Cocktail> {
     return this.cocktails.pipe(
-      filter(cocktails => cocktails != null ),
-      map(cocktails => cocktails[index])
+        filter(cocktails => cocktails != null && cocktails.length > 0),
+        map(cocktails => cocktails[0])
     );
   }
 
   addCocktail(cocktail: Cocktail): void {
 
     const cocktails = this.cocktails.value.slice();
-    cocktails.push(new Cocktail(cocktail.name,
-      cocktail.img,
-      cocktail.desc,
-      cocktail.ingredients.map(ingredient => new Ingredient(ingredient.name, ingredient.quantity))
-      )
+    cocktails.push(new Cocktail(cocktail.id, cocktail.name,
+        cocktail.image,
+        cocktail.description
+        //cocktail.ingredients.map(ingredient => new Ingredient(ingredient.name, ingredient.quantity))
+        )
     );
 
-    this.http.put<Cocktail[]>('https://cocktails-angular-36eae.firebaseio.com/cocktails.json', cocktails)
-      // tslint:disable-next-line: no-shadowed-variable
-      .subscribe(cocktails => {
-        this.cocktails.next(cocktails);
-      });
+    this.http.post<Cocktail>(`${this.apiPath}/sites/${this.siteId}/cocktails`, cocktail, this.httpOptions)
+        // tslint:disable-next-line: no-shadowed-variable
+        .subscribe();
   }
 
   editCocktail(editCocktail: Cocktail) {
     const cocktails = this.cocktails.value;
-    let index = cocktails.findIndex(c => c.name === editCocktail.name);
+    let index = cocktails.findIndex(c => c.id === editCocktail.id);
     cocktails[index] = editCocktail;
-    this.http.put<Cocktail[]>('https://cocktails-angular-36eae.firebaseio.com/cocktails.json', this.cocktails.value)
-      // tslint:disable-next-line: no-shadowed-variable
-      .subscribe(cocktails => {
-        this.cocktails.next(cocktails);
-      });
+    this.http.put<Cocktail[]>(`${this.apiPath}/cocktails/${editCocktail.id}`, editCocktail, this.httpOptions)
+        // tslint:disable-next-line: no-shadowed-variable
+      .subscribe();
   }
 
   // public cocktail: BehaviorSubject<Cocktail> = new BehaviorSubject(this.cocktails.value[0]);
@@ -55,8 +65,17 @@ export class CocktailService {
   // }
 
   constructor(private http: HttpClient) {
-    this.http.get<Cocktail[]>('https://cocktails-angular-36eae.firebaseio.com/cocktails.json').subscribe(cocktails => {
-      this.cocktails.next(cocktails);
+    this.http.get<{ items: Cocktail[]}>(`${this.apiPath}/sites/${this.siteId}/cocktails`, this.httpOptions).subscribe(response => {
+      this.cocktails.next(response.items);
     });
+  }
+
+  deleteCocktail(id: number) {
+    this.http.delete<Cocktail>(`${this.apiPath}/cocktails/${id}`, this.httpOptions)
+        // tslint:disable-next-line: no-shadowed-variable
+        .subscribe(value => {
+          const cocktails : Cocktail[] = this.cocktails.value.slice();
+          this.cocktails.next(cocktails.filter(cocktail => cocktail.id !== id));
+        });
   }
 }
