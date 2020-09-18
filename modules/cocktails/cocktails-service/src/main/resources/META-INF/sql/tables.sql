@@ -8,6 +8,6 @@ create table Cocktail_Cocktail (
 	createDate DATE null,
 	modifiedDate DATE null,
 	name VARCHAR(75) null,
-	image VARCHAR(75) null,
-	description VARCHAR(75) null
+	image TEXT null,
+	description TEXT null
 );

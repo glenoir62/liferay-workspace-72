@@ -14,18 +14,27 @@ import { ActivatedRoute, Params, ParamMap } from '@angular/router';
 export class CocktailsDetailsComponent implements OnInit {
 
   public cocktail: Cocktail;
-  public index: number;
+  public currentId: number;
 
   constructor(private activatedRoute: ActivatedRoute, private cocktailService: CocktailService, private panierService: PanierService) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params: Params) => {
       if (params.get('index')) {
-        this.index = params.get('index');
+        this.cocktailService
+            .getCocktail(params.get('index'))
+            .subscribe((cocktail: Cocktail) => {
+              this.cocktail = cocktail;
+              this.currentId = cocktail.id;
+            });
       } else {
-        this.index = 0;
+        this.cocktailService.
+          getFirstCocktail()
+          .subscribe((cocktail: Cocktail) => {
+            this.cocktail = cocktail;
+            this.currentId = cocktail.id;
+          });
       }
-      this.cocktailService.getCocktail(this.index).subscribe(cocktails => this.cocktail = cocktails);
     });
   }
 
@@ -35,6 +44,6 @@ export class CocktailsDetailsComponent implements OnInit {
   }
 
   getUrl(): string[]{
-    return ['/cocktails', this.index + '', 'edit'];
+    return ['/cocktails', this.currentId + '', 'edit'];
   }
 }

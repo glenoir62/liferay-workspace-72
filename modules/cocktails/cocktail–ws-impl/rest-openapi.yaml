@@ -18,6 +18,31 @@ components:
             required:
                 - name
             type: object
+
+    securitySchemes:
+        BasicAuth:
+            type: http
+            scheme: basic
+        BearerAuth:
+            type: http
+            scheme: bearer
+        ApiKeyAuth:
+            type: apiKey
+            in: header
+            name: X-API-Key
+        OpenID:
+            type: openIdConnect
+            openIdConnectUrl: https://example.com/.well-known/openid-configuration
+        OAuth2:
+            type: oauth2
+            flows:
+                authorizationCode:
+                    authorizationUrl: https://example.com/oauth/authorize
+                    tokenUrl: https://example.com/oauth/token
+                    scopes:
+                        read: Grants read access
+                        write: Grants write access
+                        admin: Grants access to admin operations
 info:
     description: Cocktail api
     license:
@@ -28,7 +53,16 @@ info:
     contact:
         name: guillaume lenoir
         email: guillaume.lenoir59@gmail.com
-openapi: 3.0.1
+    termsOfService: http://swagger.io/terms/
+openapi: 3.0.3
+security:
+    - BasicAuth: []
+    - BearerAuth: []
+    - BearerAuth: []
+    - OpenID: []
+    - OAuth2:
+          - read
+          - write
 paths:
     "/cocktails/{cocktailId}":
         delete:
@@ -173,3 +207,11 @@ paths:
                                 $ref: "#/components/schemas/Cocktail"
                     description: ""
             tags: ["Cocktail"]
+servers:
+    - url: http://localhost:{port}/o/{basePath}
+      description: New Server
+      variables:
+          port:
+              default: "8080"
+          basePath:
+              default: cocktails/v1.0

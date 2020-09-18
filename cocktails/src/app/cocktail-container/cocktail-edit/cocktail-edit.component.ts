@@ -34,16 +34,15 @@ export class CocktailEditComponent implements OnInit {
     });
   }
 
-  initForm(cocktail: Cocktail = {name : '', img : '', desc: '', ingredients: []}) {
+  initForm(cocktail: Cocktail = {id : 0, name : '', image : '', description: '', ingredients: []}) {
 
     this.cocktailFormGroup =  this.fb.group({
+      id: [cocktail.id, Validators.required],
       name: [cocktail.name, Validators.required],
-      img: [cocktail.img, Validators.required],
-      desc: [cocktail.desc],
-      ingredients: this.fb.array(cocktail.ingredients.map(ingredient => this.fb.group({
-        name: [ingredient.name],
-        quantity: [ingredient.quantity]
-      })))
+      image: [cocktail.image, Validators.required],
+      description: [cocktail.description],
+      ingredients: this.fb.array([])
+
     });
   }
 
@@ -61,5 +60,9 @@ export class CocktailEditComponent implements OnInit {
     } else {
       this.cocktailService.addCocktail(this.cocktailFormGroup.value);
     }
+  }
+
+  deleteCocktail(id: number) {
+    this.cocktailService.deleteCocktail(id);
   }
 }

@@ -2,6 +2,7 @@ package fr.gleo.liferay.meetup.ws.dto.v1_0;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.petra.function.UnsafeSupplier;
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @JsonFilter("Liferay.Vulcan")
 @Schema(requiredProperties = {"name"})
 @XmlRootElement(name = "Cocktail")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Cocktail {
 
 	@Schema
