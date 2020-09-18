@@ -13,7 +13,7 @@
         <textarea formControlName="description" type="text" class="form-control" id="exampleInputDescription"></textarea>
     </div>
 <!--    <hr>-->
-     <button *ngIf="cocktailFormGroup.get('ingredients') && cocktailFormGroup.get('ingredients').controls.size > 0" type="button" class="btn btn-success" (click)="addIngredient()">Ajouter un ingredient</button>
+     <button *ngIf="cocktailFormGroup.get('ingredients') && cocktailFormGroup.get('ingredients').controls.size >=0" type="button" class="btn btn-success" (click)="addIngredient()">Ajouter un ingredient</button>
 <!--    <hr>-->
         <div *ngIf="cocktailFormGroup.get('ingredients') && cocktailFormGroup.get('ingredients').controls" formArrayName="ingredients">
             <div [formGroup]="ingredient" class="form-group row" *ngFor="let ingredient of cocktailFormGroup.get('ingredients').controls">

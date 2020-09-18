@@ -11,7 +11,7 @@ import { filter, map } from 'rxjs/operators';
 })
 export class CocktailService {
 
-  public cocktails: BehaviorSubject<Cocktail[]> = new BehaviorSubject(null);
+  public cocktails: BehaviorSubject<Cocktail[]> = new BehaviorSubject([]);
 
   private apiPath: string = "http://localhost:8080/o/cocktails/v1.0";
   private siteId: number = 20124;
@@ -35,27 +35,31 @@ export class CocktailService {
   }
 
   addCocktail(cocktail: Cocktail): void {
-
     const cocktails = this.cocktails.value.slice();
-    cocktails.push(new Cocktail(cocktail.id, cocktail.name,
-        cocktail.image,
-        cocktail.description
-        //cocktail.ingredients.map(ingredient => new Ingredient(ingredient.name, ingredient.quantity))
-        )
-    );
 
     this.http.post<Cocktail>(`${this.apiPath}/sites/${this.siteId}/cocktails`, cocktail, this.httpOptions)
         // tslint:disable-next-line: no-shadowed-variable
-        .subscribe();
+        .subscribe(value => {
+          cocktails.push(new Cocktail(value.id, value.name,
+              value.image,
+              value.description
+              //cocktail.ingredients.map(ingredient => new Ingredient(ingredient.name, ingredient.quantity))
+              )
+          );
+          this.cocktails.next(cocktails);
+        });
   }
 
   editCocktail(editCocktail: Cocktail) {
     const cocktails = this.cocktails.value;
     let index = cocktails.findIndex(c => c.id === editCocktail.id);
     cocktails[index] = editCocktail;
-    this.http.put<Cocktail[]>(`${this.apiPath}/cocktails/${editCocktail.id}`, editCocktail, this.httpOptions)
+
+    this.http.put<Cocktail>(`${this.apiPath}/cocktails/${editCocktail.id}`, editCocktail, this.httpOptions)
         // tslint:disable-next-line: no-shadowed-variable
-      .subscribe();
+      .subscribe(value => {
+        this.cocktails.next(cocktails);
+      });
   }
 
   // public cocktail: BehaviorSubject<Cocktail> = new BehaviorSubject(this.cocktails.value[0]);
@@ -66,7 +70,10 @@ export class CocktailService {
 
   constructor(private http: HttpClient) {
     this.http.get<{ items: Cocktail[]}>(`${this.apiPath}/sites/${this.siteId}/cocktails`, this.httpOptions).subscribe(response => {
-      this.cocktails.next(response.items);
+      if(response.items) {
+        this.cocktails.next(response.items);
+      }
+
     });
   }
 
