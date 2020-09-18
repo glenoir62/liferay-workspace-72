@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -72,6 +73,23 @@ public interface CocktailLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public Cocktail addCocktail(Cocktail cocktail);
+
+	/**
+	 * Adds an cocktail.
+	 *
+	 * @param groupId
+	 * @param name
+	 * @param description
+	 * @param image
+	 * @param serviceContext
+	 * @return
+	 * @throws PortalException
+	 */
+	@Indexable(type = IndexableType.REINDEX)
+	public Cocktail addCocktail(
+			long groupId, String name, String description, String image,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Creates a new cocktail with the primary key. Does not add the cocktail to the database.
@@ -227,6 +245,13 @@ public interface CocktailLocalService
 	public List<Cocktail> getCocktails(int start, int end);
 
 	/**
+	 * @param groupId
+	 * @return
+	 */
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Cocktail> getCocktailsByGroupId(long groupId);
+
+	/**
 	 * Returns all the cocktails matching the UUID and company.
 	 *
 	 * @param uuid the UUID of the cocktails
@@ -261,6 +286,9 @@ public interface CocktailLocalService
 	public int getCocktailsCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCocktailsCountByGroupId(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
 		PortletDataContext portletDataContext);
 
@@ -290,5 +318,22 @@ public interface CocktailLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public Cocktail updateCocktail(Cocktail cocktail);
+
+	/**
+	 * Updates cocktail.
+	 *
+	 * @param cocktailId
+	 * @param name
+	 * @param description
+	 * @param image
+	 * @param serviceContext
+	 * @return
+	 * @throws PortalException
+	 */
+	@Indexable(type = IndexableType.REINDEX)
+	public Cocktail updateCocktail(
+			long cocktailId, String name, String description, String image,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 }

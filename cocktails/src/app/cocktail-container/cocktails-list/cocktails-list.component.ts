@@ -13,7 +13,7 @@ export class CocktailsListComponent implements OnInit {
 
   public search = '';
   public cocktails: Cocktail[];
-  public activeCocktail = 0;
+  public activeCocktail = 1;
 
   constructor(private cocktailService: CocktailService) { }
 

@@ -155,7 +155,9 @@ public class CocktailCacheModel
 	}
 
 	@Override
-	public void readExternal(ObjectInput objectInput) throws IOException {
+	public void readExternal(ObjectInput objectInput)
+		throws ClassNotFoundException, IOException {
+
 		uuid = objectInput.readUTF();
 
 		cocktailId = objectInput.readLong();
@@ -169,8 +171,8 @@ public class CocktailCacheModel
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		name = objectInput.readUTF();
-		image = objectInput.readUTF();
-		description = objectInput.readUTF();
+		image = (String)objectInput.readObject();
+		description = (String)objectInput.readObject();
 	}
 
 	@Override
@@ -208,17 +210,17 @@ public class CocktailCacheModel
 		}
 
 		if (image == null) {
-			objectOutput.writeUTF("");
+			objectOutput.writeObject("");
 		}
 		else {
-			objectOutput.writeUTF(image);
+			objectOutput.writeObject(image);
 		}
 
 		if (description == null) {
-			objectOutput.writeUTF("");
+			objectOutput.writeObject("");
 		}
 		else {
-			objectOutput.writeUTF(description);
+			objectOutput.writeObject(description);
 		}
 	}
 

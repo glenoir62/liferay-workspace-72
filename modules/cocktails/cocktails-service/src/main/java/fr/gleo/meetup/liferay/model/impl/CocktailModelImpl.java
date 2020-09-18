@@ -79,8 +79,8 @@ public class CocktailModelImpl
 		{"groupId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"name", Types.VARCHAR}, {"image", Types.VARCHAR},
-		{"description", Types.VARCHAR}
+		{"name", Types.VARCHAR}, {"image", Types.CLOB},
+		{"description", Types.CLOB}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -96,12 +96,12 @@ public class CocktailModelImpl
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("image", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("image", Types.CLOB);
+		TABLE_COLUMNS_MAP.put("description", Types.CLOB);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Cocktail_Cocktail (uuid_ VARCHAR(75) null,cocktailId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,image VARCHAR(75) null,description VARCHAR(75) null)";
+		"create table Cocktail_Cocktail (uuid_ VARCHAR(75) null,cocktailId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,image TEXT null,description TEXT null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Cocktail_Cocktail";
 
