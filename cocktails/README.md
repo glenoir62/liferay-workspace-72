@@ -36,3 +36,35 @@ https://help.liferay.com/hc/en-us/articles/360036343312-REST-Builder
 
 https://help.liferay.com/hc/en-us/articles/360030377272-Configuring-CORS#enabling-cors-for-jax-rs-applications
 https://blog.mimacom.com/building-modern-api-in-liferay-dxp-with-swagger-and-jax-rs/
+
+https://github.com/stoplightio/prism
+
+
+https://dev.to/rafaelbernard/environment-variables-in-angular-1f1i
+https://www.npmjs.com/package/@openapitools/openapi-generator-cli
+
+
+https://github.com/jormaechea/open-api-mocker
+
+npm i -g open-api-mocker
+
+open-api-mocker -s ./openapi/cocktails.yaml -w
+
+
+https://github.com/stoplightio/prism/blob/master/docs/guides/01-mocking.md
+
+prism mock ./openapi/cocktails.yaml
+prism mock -d ./openapi/cocktails.yaml
+
+https://phoenixnap.com/kb/update-node-js-version
+may be update node
+
+prism mock ./openapi/cocktails.yaml
+https://github.com/marak/Faker.js
+https://meta.stoplight.io/docs/spectral/docs/getting-started/4-openapi.md
+
+
+
+data  ->
+
+https://www.geekbomb.net/the-bomb-shelter-rick-and-morty-cocktails/

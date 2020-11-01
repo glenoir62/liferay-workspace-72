@@ -1,88 +1,81 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Cocktail } from '../models/cocktail.model';
-import { Ingredient } from '../models/ingredient.model';
-import { CocktailEditComponent } from 'src/app/cocktail-container/cocktail-edit/cocktail-edit.component';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { filter, map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {filter, map} from 'rxjs/operators';
+
+import {CocktailService as CocktailServiceOpenApi} from '../../api/cocktails/services/cocktail.service';
+import {Cocktail} from '../models/cocktail.model';
+
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class CocktailService {
 
-  public cocktails: BehaviorSubject<Cocktail[]> = new BehaviorSubject([]);
+    public cocktails: BehaviorSubject<Cocktail[]> = new BehaviorSubject([]);
 
-  private apiPath: string = "http://localhost:8080/o/cocktails/v1.0";
-  private siteId: number = 20124;
+    private siteId: number = 20124;
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      Authorization: 'Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0'
-    })
-  };
+    getCocktail(cocktailId: number): Observable<Cocktail> {
+        return this.cocktailServiceOpenApi.getCocktail$Json({cocktailId: cocktailId}).pipe(
+            map(cocktail => cocktail as Cocktail)
+        );
+    }
 
-  getCocktail(cocktailId: number): Observable<Cocktail> {
-    return this.http.get<Cocktail>(`${this.apiPath}/cocktails/${cocktailId}`, this.httpOptions);
-  }
+    getFirstCocktail(): Observable<Cocktail> {
+        return this.cocktails.pipe(
+            filter(cocktails => cocktails != null && cocktails.length > 0),
+            map(cocktails => cocktails[0])
+        );
+    }
 
-  getFirstCocktail(): Observable<Cocktail> {
-    return this.cocktails.pipe(
-        filter(cocktails => cocktails != null && cocktails.length > 0),
-        map(cocktails => cocktails[0])
-    );
-  }
+    addCocktail(cocktail: Cocktail): void {
+        const cocktails = this.cocktails.value.slice();
 
-  addCocktail(cocktail: Cocktail): void {
-    const cocktails = this.cocktails.value.slice();
-
-    this.http.post<Cocktail>(`${this.apiPath}/sites/${this.siteId}/cocktails`, cocktail, this.httpOptions)
+        this.cocktailServiceOpenApi.postSiteCocktail$Json$Json({
+            siteId: this.siteId,
+            body: cocktail
+        })
         // tslint:disable-next-line: no-shadowed-variable
         .subscribe(value => {
-          cocktails.push(new Cocktail(value.id, value.name,
-              value.image,
-              value.description
-              //cocktail.ingredients.map(ingredient => new Ingredient(ingredient.name, ingredient.quantity))
-              )
-          );
-          this.cocktails.next(cocktails);
+            cocktails.push(new Cocktail(value.id, value.name,
+                value.image,
+                value.description
+                //cocktail.ingredients.map(ingredient => new Ingredient(ingredient.name, ingredient.quantity))
+                )
+            );
+            this.cocktails.next(cocktails);
         });
-  }
+    }
 
-  editCocktail(editCocktail: Cocktail) {
-    const cocktails = this.cocktails.value;
-    let index = cocktails.findIndex(c => c.id === editCocktail.id);
-    cocktails[index] = editCocktail;
+    editCocktail(editCocktail: Cocktail) {
+        const cocktails = this.cocktails.value;
+        let index = cocktails.findIndex(c => c.id === editCocktail.id);
+        cocktails[index] = editCocktail;
 
-    this.http.put<Cocktail>(`${this.apiPath}/cocktails/${editCocktail.id}`, editCocktail, this.httpOptions)
-        // tslint:disable-next-line: no-shadowed-variable
-      .subscribe(value => {
-        this.cocktails.next(cocktails);
-      });
-  }
-
-  // public cocktail: BehaviorSubject<Cocktail> = new BehaviorSubject(this.cocktails.value[0]);
-
-  // selectCocktail(index: number): void {
-  //   this.cocktail.next(this.cocktails.value[index]);
-  // }
-
-  constructor(private http: HttpClient) {
-    this.http.get<{ items: Cocktail[]}>(`${this.apiPath}/sites/${this.siteId}/cocktails`, this.httpOptions).subscribe(response => {
-      if(response.items) {
-        this.cocktails.next(response.items);
-      }
-
-    });
-  }
-
-  deleteCocktail(id: number) {
-    this.http.delete<Cocktail>(`${this.apiPath}/cocktails/${id}`, this.httpOptions)
-        // tslint:disable-next-line: no-shadowed-variable
-        .subscribe(value => {
-          const cocktails : Cocktail[] = this.cocktails.value.slice();
-          this.cocktails.next(cocktails.filter(cocktail => cocktail.id !== id));
+        this.cocktailServiceOpenApi.putCocktail$Json$Json(
+            {
+                cocktailId: editCocktail.id,
+                body: editCocktail
+            }
+        ).subscribe(_value => {
+            this.cocktails.next(cocktails);
         });
-  }
+    }
+
+    constructor(private http: HttpClient, private cocktailServiceOpenApi: CocktailServiceOpenApi) {
+        this.cocktailServiceOpenApi.getSiteCocktailsPage$Json({siteId: this.siteId}).subscribe(pageCocktail => {
+            if (pageCocktail.items) {
+                this.cocktails.next(pageCocktail.items as Cocktail[]);
+            }
+        });
+    }
+
+    deleteCocktail(id: number) {
+        this.cocktailServiceOpenApi.deleteCocktail$Json({cocktailId: id})
+            .subscribe(value => {
+                const cocktails: Cocktail[] = this.cocktails.value.slice();
+                this.cocktails.next(cocktails.filter(cocktail => cocktail.id !== id));
+            });
+    }
 }
