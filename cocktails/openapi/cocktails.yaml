@@ -1,0 +1,329 @@
+components:
+  examples:
+    CocktailsObjectExample:
+      summary: Cocktails sample object
+      value:
+        items:
+          - id: 1
+            name: Flaming moes
+            image: 'https://i.ytimg.com/vi/SVOLZv7tluk/hqdefault.jpg'
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit'
+            createDate: '2020-09-18T17:04:48Z'
+          - id: 2
+            name: Slurm
+            image: 'https://www.austinchronicle.com/binary/d230/screens_feature3-1.jpg'
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit'
+            createDate: '2020-09-18T17:04:48Z'
+          - id: 3
+            name: Get Schwifty (shot)
+            image: 'https://image.freepik.com/vecteurs-libre/vecteur-dessin-anime-luxe-tropical-resort-hotel-cocktail-table_33099-1306.jpg'
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit'
+            createDate: '2020-09-18T17:04:48Z'
+          - id: 4
+            name: Morty’s Margarita
+            image: 'https://itadakimasuanime.files.wordpress.com/2018/12/Cocktail-The-Night-is-Short-Walk-on-Girl.png?w=600&h=338'
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit'
+            createDate: '2020-09-18T17:04:48Z'
+          - id: 5
+            name: Rick Rolled!
+            image: 'https://previews.123rf.com/images/microbagrandioza/microbagrandioza1710/microbagrandioza171000057/88543542-ic%C3%B4ne-de-cocktail-multicolore-illustration-de-dessin-anim%C3%A9-plane-vectorielle.jpg'
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit'
+            createDate: '2020-09-18T17:04:48Z'
+
+  schemas:
+    Cocktail:
+      description: Represents an cocktail.
+      properties:
+        createDate:
+          format: date-time
+          type: string
+          example: '2020-09-18T17:04:48Z'
+          x-faker: date.future
+        id:
+          format: int64
+          type: integer
+          example: "1"
+          x-faker: random.number
+        name:
+          type: string
+          example: "mojito"
+          x-faker: commerce.productName
+        image:
+          type: string
+          example: "https://static.750g.com/images/660-auto/b520523117d647dab6b842a36f4cc7f5/mojito-le-vrai.jpg"
+          x-faker: random.image
+        description:
+          type: string
+          example: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit"
+          x-faker: lorem.paragraphs
+      required:
+        - name
+      type: object
+    PageCocktail:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cocktail'
+        lastPage:
+          type: integer
+          format: int64
+        totalCount:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+        pageSize:
+          type: integer
+          format: int64
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    OpenID:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: http://localhost:8080/o/oauth2/token
+          scopes:
+            Liferay.Headless.Delivery.everything.read: Liferay.Headless.Delivery.everything.read
+            Liferay.Headless.Delivery.everything.write: Liferay.Headless.Delivery.everything.write
+            Liferay.Headless.Delivery.everything: Liferay.Headless.Delivery.everything
+info:
+  description: Cocktail api
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  title: "Cocktails"
+  version: v1.0
+  contact:
+    name: guillaume lenoir
+    email: guillaume.lenoir59@gmail.com
+  termsOfService: http://swagger.io/terms/
+openapi: 3.0.3
+security:
+  - BasicAuth: []
+  - OAuth2: []
+paths:
+  "/cocktails/{cocktailId}":
+    delete:
+      description: delete cocktailId
+      operationId: deleteCocktail
+      parameters:
+        - in: path
+          name: cocktailId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        204:
+          description: No content
+          content:
+            application/json: {}
+            application/xml: {}
+      tags: ["Cocktail"]
+    get:
+      operationId: getCocktail
+      parameters:
+        - in: path
+          name: cocktailId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cocktail"
+              examples:
+                Flamingmoes:
+                  summary: An example of Flaming moes
+                  value:
+                    id: 1
+                    name: Flaming moes
+                    image: 'https://i.ytimg.com/vi/SVOLZv7tluk/hqdefault.jpg'
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit'
+                    createDate: '2020-09-18T17:04:48Z'
+                Slurm:
+                  summary: An example of Slurm
+                  value:
+                    id: 2
+                    name: Slurm
+                    image: 'https://www.austinchronicle.com/binary/d230/screens_feature3-1.jpg'
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit'
+                    createDate: '2020-09-18T17:04:48Z'
+                GetSchwifty:
+                  summary: An example of Get Schwifty (shot)
+                  value:
+                    id: 3
+                    name: Get Schwifty (shot)
+                    image: 'https://image.freepik.com/vecteurs-libre/vecteur-dessin-anime-luxe-tropical-resort-hotel-cocktail-table_33099-1306.jpg'
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit'
+                    createDate: '2020-09-18T17:04:48Z'
+                MortysMargarita:
+                  summary: An example of Morty s Margarita
+                  value:
+                    id: 4
+                    name: Morty’s Margarita
+                    image: 'https://itadakimasuanime.files.wordpress.com/2018/12/Cocktail-The-Night-is-Short-Walk-on-Girl.png?w=600&h=338'
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit'
+                    createDate: '2020-09-18T17:04:48Z'
+                RickRolled:
+                  summary: An example of Rick Rolled!
+                  value:
+                    id: 5
+                    name: Rick Rolled!
+                    image: 'https://previews.123rf.com/images/microbagrandioza/microbagrandioza1710/microbagrandioza171000057/88543542-ic%C3%B4ne-de-cocktail-multicolore-illustration-de-dessin-anim%C3%A9-plane-vectorielle.jpg'
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit'
+                    createDate: '2020-09-18T17:04:48Z'
+                Test:
+                  summary: A sample objectdd
+                  externalValue: 'https://cocktails-angular-36eae.firebaseio.com/cocktails/6.json'
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Cocktail"
+          description: "Get cocktail"
+      tags: ["Cocktail"]
+      description: get cocktailId
+    put:
+      description: put cocktailId
+      operationId: putCocktail
+      parameters:
+        - in: path
+          name: cocktailId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cocktail"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Cocktail"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cocktail"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Cocktail"
+          description: ""
+      tags: ["Cocktail"]
+  "/sites/{siteId}/cocktails":
+    get:
+      operationId: getSiteCocktailsPage
+      parameters:
+        - in: path
+          name: siteId
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        200:
+          description: Retrieves the Site's cocktails. Results can be paginated, filtered, searched, and sorted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageCocktail'
+              examples:
+                Flamingmoes:
+                  $ref: '#/components/examples/CocktailsObjectExample'
+                Slurm:
+                  $ref: '#/components/examples/CocktailsObjectExample'
+                GetSchwifty:
+                  $ref: '#/components/examples/CocktailsObjectExample'
+                MortysMargarita:
+                  $ref: '#/components/examples/CocktailsObjectExample'
+                RickRolled:
+                  $ref: '#/components/examples/CocktailsObjectExample'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PageCocktail'
+      tags: ["Cocktail"]
+      description: Retrieves the Site's cocktails. Results can be paginated, filtered, searched, and sorted.
+    post:
+      description: post cocktails by site id
+      operationId: postSiteCocktail
+      parameters:
+        - in: path
+          name: siteId
+          required: true
+          schema:
+            format: int64
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cocktail"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Cocktail"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cocktail"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Cocktail"
+          description: ""
+      tags: ["Cocktail"]
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/glenoir62/Cocktails/v1.0
+  - url: http://localhost:{port}/o/{basePath}
+    description: New Server
+    variables:
+      port:
+        default: "8080"
+      basePath:
+        default: cocktails/v1.0
+  - url: http://localhost:{port}
+    description: Mock Server
+    variables:
+      port:
+        default: "4010"

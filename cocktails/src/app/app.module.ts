@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {forwardRef, NgModule, Provider} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { CocktailsListComponent } from './cocktail-container/cocktails-list/cocktails-list.component';
 import { CocktailsDetailsComponent } from './cocktail-container/cocktails-details/cocktails-details.component';
@@ -16,6 +16,16 @@ import { PanierService } from './shared/services/panier.service';
 import { CocktailEditComponent } from './cocktail-container/cocktail-edit/cocktail-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipe } from './shared/pipes/filter.pipe';
+import {ApiModule as CocktailApiModule} from './api/cocktails/api.module';
+import {ApiModule as LiferayDeliveryApiMOdule} from './api/liferay-delivery/api.module';
+import {ApiInterceptor} from './ApiInterceptor';
+import {environment} from '../environments/environment';
+
+export const API_INTERCEPTOR_PROVIDER: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  useExisting: forwardRef(() => ApiInterceptor),
+  multi: true,
+};
 
 @NgModule({
   declarations: [
@@ -34,11 +44,17 @@ import { FilterPipe } from './shared/pipes/filter.pipe';
     BrowserModule,
     AppRoutingModule,
     AppRouting,
+    CocktailApiModule.forRoot({ rootUrl:  environment.cocktailApiHost }),
+    LiferayDeliveryApiMOdule.forRoot({ rootUrl:  environment.liferayDeliveryApiHost }),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [PanierService],
+  providers: [
+    PanierService,
+    ApiInterceptor,
+    API_INTERCEPTOR_PROVIDER
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
