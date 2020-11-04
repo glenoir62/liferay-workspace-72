@@ -97,6 +97,7 @@ public class CocktailLocalServiceImpl extends CocktailLocalServiceBaseImpl {
 		cocktail.setGroupId(groupId);
 		cocktail.setUserId(userId);
 		cocktail.setName(name);
+		cocktail.setImage(image);
 		cocktail.setDescription(description);
 		cocktail.setUserName(user.getScreenName());
 
