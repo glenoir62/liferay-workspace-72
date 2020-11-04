@@ -98,9 +98,9 @@ components:
         clientCredentials:
           tokenUrl: http://localhost:8080/o/oauth2/token
           scopes:
-            Liferay.Headless.Delivery.everything.read: Liferay.Headless.Delivery.everything.read
-            Liferay.Headless.Delivery.everything.write: Liferay.Headless.Delivery.everything.write
-            Liferay.Headless.Delivery.everything: Liferay.Headless.Delivery.everything
+            Liferay.Cocktails.everything: Liferay.Cocktails.everything
+            Liferay.Cocktails.everything.write: Liferay.Cocktails.everything.write
+            Liferay.Cocktails.everything.read: Liferay.Cocktails.everything.read
 info:
   description: Cocktail api
   license:
@@ -265,7 +265,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PageCocktail'
+                  $ref: '#/components/schemas/PageCocktail'
               examples:
                 Flamingmoes:
                   $ref: '#/components/examples/CocktailsObjectExample'
