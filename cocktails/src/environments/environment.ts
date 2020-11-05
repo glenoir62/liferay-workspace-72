@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  cocktailApiHost: 'http://localhost:8080/o/cocktails/v1.0',
+  liferayDeliveryApiHost: 'http://localhost:8080/o/headless-delivery'
 };
 
 /*

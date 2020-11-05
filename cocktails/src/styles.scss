@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+.container{
+  .bg-primary {
+    background-color: #ec5287!important;
+  }
+  .list-group-item.active{
+    background-color: #ec5287!important;
+    border-color: red;
+  }
+  .btn-success {
+    color: #fff;
+    background-color: #a31244;
+    border-color: #a31244;
+  }
+
+  .btn-primary {
+    color: #fff;
+    background-color: #52c616;
+    border-color: #52c616;
+  }
+}
