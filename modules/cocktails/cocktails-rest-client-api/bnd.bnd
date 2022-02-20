@@ -1,0 +1,15 @@
+Bundle-Name: cocktails-rest-client-api
+Bundle-SymbolicName: fr.gleo.meetup.cocktail.client.api
+Bundle-Version: 1.0.0
+Import-Package: javax.annotation;resolution:="optional",javax.annotation.*;resolution:="optional",!android.security,!android.util,!android.net,!android.net.*,!android.os,!dalvik.system,!org.conscrypt,!org.bouncycastle.jsse.*,!org.openjsse.javax.net.ssl.*,!org.openjsse.net.ssl,*
+
+Export-Package: \
+	fr.gleo.meetup.cocktail.client.api,\
+	fr.gleo.meetup.cocktail.client.model
+
+Include-Resource: \
+    @swagger-annotations-1.5.22.jar,\
+    @gson-fire-1.8.0.jar,\
+    @jsr305-3.0.2.jar,\
+    @gson-2.8.6.jar
+

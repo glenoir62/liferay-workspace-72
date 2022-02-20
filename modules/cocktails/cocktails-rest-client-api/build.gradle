@@ -1,0 +1,54 @@
+
+dependencies {
+
+    implementation "io.swagger:swagger-annotations:$swagger_annotations_version"
+    implementation ("org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:$oltu_version"){
+        exclude group:'org.apache.oltu.oauth2' , module: 'org.apache.oltu.oauth2.common'
+    }
+    implementation "io.gsonfire:gson-fire:$json_fire_version"
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation "com.google.code.findbugs:jsr305:3.0.2"
+
+    testImplementation "junit:junit:$junit_version"
+
+    compileOnly group: "com.liferay", name: "com.liferay.application.list.api"
+    compileOnly group: "com.liferay", name: "com.liferay.application.list.taglib"
+    compileOnly group: "com.liferay", name: "com.liferay.frontend.taglib"
+    compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel"
+    compileOnly group: "com.liferay.portal", name: "com.liferay.util.taglib"
+    compileOnly group: "javax.portlet", name: "portlet-api"
+    compileOnly group: "javax.servlet", name: "javax.servlet-api"
+    compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations"
+
+    cssBuilder group: "com.liferay", name: "com.liferay.css.builder", version: "3.0.2"
+}
+
+
+/*
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.openapitools:openapi-generator-gradle-plugin:5.4.0"
+    }
+}
+apply plugin: "org.openapi.generator"
+
+openApiGenerate {
+    generatorName = "java"
+    library = "retrofit2"
+    inputSpec = "$rootDir/specs/cocktails.yaml".toString()
+    outputDir = "$buildDir/generated".toString()
+    apiPackage = "fr.gleo.meetup.cocktail.client.api"
+    invokerPackage = "fr.gleo.meetup.cocktail.client.invoker"
+    modelPackage = "fr.gleo.meetup.cocktail.client.model"
+    configOptions = [
+            dateLibrary: "java8"
+    ]
+}
+*/
+
+
