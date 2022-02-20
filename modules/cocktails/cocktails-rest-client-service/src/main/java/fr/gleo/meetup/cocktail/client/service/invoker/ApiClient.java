@@ -36,58 +36,12 @@ public class ApiClient {
 
   public ApiClient() {
     apiAuthorizations = new LinkedHashMap<String, Interceptor>();
-    createDefaultAdapter();
     okBuilder = new OkHttpClient.Builder();
   }
 
   public ApiClient(OkHttpClient client){
     apiAuthorizations = new LinkedHashMap<String, Interceptor>();
-    createDefaultAdapter();
     okHttpClient = client;
-  }
-
-  public ApiClient(String[] authNames) {
-    this();
-    for(String authName : authNames) {
-      Interceptor auth;
-      if ("ApiKeyAuth".equals(authName)) {
-        
-        auth = new ApiKeyAuth("header", "X-API-Key");
-      } else if ("BasicAuth".equals(authName)) {
-        
-        auth = new HttpBasicAuth();
-        
-      } else if ("BearerAuth".equals(authName)) {
-        
-        auth = new HttpBearerAuth("bearer");
-        
-      } else if ("OAuth2".equals(authName)) {
-        
-        auth = new OAuth(OAuthFlow.application, "", "http://localhost:8080/o/oauth2/token", "Liferay.Cocktails.everything, Liferay.Cocktails.everything.write, Liferay.Cocktails.everything.read");
-      } else {
-        throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
-      }
-
-      addAuthorization(authName, auth);
-    }
-  }
-
-  /**
-   * Basic constructor for single auth name
-   * @param authName Authentication name
-   */
-  public ApiClient(String authName) {
-    this(new String[]{authName});
-  }
-
-  /**
-   * Helper constructor for single api key
-   * @param authName Authentication name
-   * @param apiKey API key
-   */
-  public ApiClient(String authName, String apiKey) {
-    this(authName);
-    this.setApiKey(apiKey);
   }
 
   /**
@@ -97,31 +51,41 @@ public class ApiClient {
    * @param password Password
    */
   public ApiClient(String authName, String username, String password) {
-    this(authName);
-    this.setCredentials(username,  password);
-  }
+    this();
 
-  /**
-   * Helper constructor for single password oauth2
-   * @param authName Authentication name
-   * @param clientId Client ID
-   * @param secret Client Secret
-   * @param username Username
-   * @param password Password
-   */
-  public ApiClient(String authName, String clientId, String secret, String username, String password) {
-    this(authName);
-    this.getTokenEndPoint()
-      .setClientId(clientId)
-      .setClientSecret(secret)
-      .setUsername(username)
-      .setPassword(password);
+      Interceptor auth;
+      if ("ApiKeyAuth".equals(authName)) {
+
+        auth = new ApiKeyAuth("header", "X-API-Key");
+      } else if ("BasicAuth".equals(authName)) {
+
+        auth = new HttpBasicAuth();
+
+      } else if ("BearerAuth".equals(authName)) {
+
+        auth = new HttpBearerAuth("bearer");
+
+      } else if ("OAuth2".equals(authName)) {
+
+        auth = new OAuth(OAuthFlow.application, "",
+                "http://localhost:8080/o/oauth2/token",
+                "Liferay.Cocktails.everything Liferay.Cocktails.everything.write Liferay.Cocktails.everything.read",
+                username,
+                password );
+      } else {
+        throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
+      }
+
+      addAuthorization(authName, auth);
+
+
+    this.setCredentials(username,  password);
   }
 
   public void createDefaultAdapter() {
     json = new JSON();
 
-    String baseUrl = "http://virtserver.swaggerhub.com/glenoir62/Cocktails/v1.0";
+    String baseUrl = "";
     if (!baseUrl.endsWith("/"))
       baseUrl = baseUrl + "/";
 
@@ -206,6 +170,8 @@ public class ApiClient {
         return this;
       }
       if (apiAuthorization instanceof OAuth) {
+        //OAuth oauth = (OAuth) apiAuthorization;
+        //oauth.getTokenRequestBuilder().setUsername(username).setPassword(password);
         OAuth oauth = (OAuth) apiAuthorization;
         oauth.getTokenRequestBuilder().setUsername(username).setPassword(password);
         return this;
@@ -377,35 +343,5 @@ class GsonResponseBodyConverterToString<T> implements Converter<ResponseBody, T>
     catch (JsonParseException e) {
       return (T) returned;
     }
-  }
-}
-
-class GsonCustomConverterFactory extends Converter.Factory
-{
-  private final Gson gson;
-  private final GsonConverterFactory gsonConverterFactory;
-
-  public static GsonCustomConverterFactory create(Gson gson) {
-    return new GsonCustomConverterFactory(gson);
-  }
-
-  private GsonCustomConverterFactory(Gson gson) {
-    if (gson == null)
-      throw new NullPointerException("gson == null");
-    this.gson = gson;
-    this.gsonConverterFactory = GsonConverterFactory.create(gson);
-  }
-
-  @Override
-  public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-    if (type.equals(String.class))
-      return new GsonResponseBodyConverterToString<Object>(gson, type);
-    else
-      return gsonConverterFactory.responseBodyConverter(type, annotations, retrofit);
-  }
-
-  @Override
-  public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-    return gsonConverterFactory.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
   }
 }

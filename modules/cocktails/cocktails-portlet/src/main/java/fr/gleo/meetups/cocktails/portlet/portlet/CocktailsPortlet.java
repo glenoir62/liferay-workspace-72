@@ -48,11 +48,8 @@ public class CocktailsPortlet extends MVCPortlet {
 
 		PageCocktail pageCocktail = cocktailService.getSiteCocktailsPage(themeDisplay.getSiteGroupId(), null,null,null,null,null);
 
-
-
 		if(Validator.isNotNull(pageCocktail) && pageCocktail.getItems().size() > 0) {
 			renderRequest.setAttribute("pageCocktails" , pageCocktail.getItems());
-
 		}
 
 		super.doView(renderRequest, renderResponse);

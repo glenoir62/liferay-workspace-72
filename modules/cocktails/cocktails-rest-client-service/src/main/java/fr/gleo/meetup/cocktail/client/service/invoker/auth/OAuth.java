@@ -37,35 +37,35 @@ public class OAuth implements Interceptor {
 
     private AccessTokenListener accessTokenListener;
 
-    public OAuth( OkHttpClient client, TokenRequestBuilder requestBuilder ) {
-        this.oauthClient = new OAuthClient(new OAuthOkHttpClient(client));
+    public OAuth(OkHttpClient client, TokenRequestBuilder requestBuilder, String username, String password) {
+        this.oauthClient = new OAuthClient(new OAuthOkHttpClient(client, username, password));
         this.tokenRequestBuilder = requestBuilder;
     }
 
-    public OAuth(TokenRequestBuilder requestBuilder ) {
-        this(new OkHttpClient(), requestBuilder);
+    public OAuth(TokenRequestBuilder requestBuilder, String username, String password) {
+        this(new OkHttpClient(), requestBuilder, username, password);
     }
 
-    public OAuth(OAuthFlow flow, String authorizationUrl, String tokenUrl, String scopes) {
-        this(OAuthClientRequest.tokenLocation(tokenUrl).setScope(scopes));
+    public OAuth(OAuthFlow flow, String authorizationUrl, String tokenUrl, String scopes, String username, String password) {
+        this(OAuthClientRequest.tokenLocation(tokenUrl).setScope(scopes), username, password);
         setFlow(flow);
         authenticationRequestBuilder = OAuthClientRequest.authorizationLocation(authorizationUrl);
     }
 
     public void setFlow(OAuthFlow flow) {
-        switch(flow) {
-        case accessCode:
-        case implicit:
-            tokenRequestBuilder.setGrantType(GrantType.AUTHORIZATION_CODE);
-            break;
-        case password:
-            tokenRequestBuilder.setGrantType(GrantType.PASSWORD);
-            break;
-        case application:
-            tokenRequestBuilder.setGrantType(GrantType.CLIENT_CREDENTIALS);
-            break;
-        default:
-            break;
+        switch (flow) {
+            case accessCode:
+            case implicit:
+                tokenRequestBuilder.setGrantType(GrantType.AUTHORIZATION_CODE);
+                break;
+            case password:
+                tokenRequestBuilder.setGrantType(GrantType.PASSWORD);
+                break;
+            case application:
+                tokenRequestBuilder.setGrantType(GrantType.CLIENT_CREDENTIALS);
+                break;
+            default:
+                break;
         }
     }
 
@@ -103,20 +103,20 @@ public class OAuth implements Interceptor {
                 throw new IOException(e);
             }
 
-            for ( Map.Entry<String, String> header : oAuthRequest.getHeaders().entrySet() ) {
+            for (Map.Entry<String, String> header : oAuthRequest.getHeaders().entrySet()) {
                 rb.addHeader(header.getKey(), header.getValue());
             }
-            rb.url( oAuthRequest.getLocationUri());
+            rb.url(oAuthRequest.getLocationUri());
 
             //Execute the request
             Response response = chain.proceed(rb.build());
 
             // 401/403 most likely indicates that access token has expired. Unless it happens two times in a row.
-            if ( response != null && (response.code() == HTTP_UNAUTHORIZED || response.code() == HTTP_FORBIDDEN) && updateTokenAndRetryOnAuthorizationFailure ) {
+            if (response != null && (response.code() == HTTP_UNAUTHORIZED || response.code() == HTTP_FORBIDDEN) && updateTokenAndRetryOnAuthorizationFailure) {
                 try {
                     if (updateAccessToken(requestAccessToken)) {
                         response.body().close();
-                        return retryingIntercept( chain, false );
+                        return retryingIntercept(chain, false);
                     }
                 } catch (Exception e) {
                     response.body().close();
