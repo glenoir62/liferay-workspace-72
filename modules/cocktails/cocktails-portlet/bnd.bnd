@@ -1,0 +1,5 @@
+Bundle-Name: cocktails-portlet
+Bundle-SymbolicName: fr.gleo.meetups.cocktails.portlet
+Bundle-Version: 1.0.0
+Export-Package: fr.gleo.meetups.cocktails.portlet.constants
+Import-Package: javax.annotation;resolution:="optional",javax.annotation.*;resolution:="optional",!kotlin,!kotlin.*,!okhttp3,!retrofit2,!android.security,!android.util,!android.net,!android.net.*,!android.os,!dalvik.system,!org.conscrypt,!org.bouncycastle.jsse.*,!org.openjsse.javax.net.ssl.*,!org.openjsse.net.ssl,*

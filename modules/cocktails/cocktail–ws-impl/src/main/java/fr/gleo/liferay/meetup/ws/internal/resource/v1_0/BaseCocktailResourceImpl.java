@@ -100,7 +100,9 @@ public abstract class BaseCocktailResourceImpl implements CocktailResource {
 
 	@Override
 	@GET
-	@Operation(description = "get cocktails by site id")
+	@Operation(
+		description = "Retrieves the Site's cocktails. Results can be paginated, filtered, searched, and sorted."
+	)
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "siteId"),
